@@ -1,0 +1,26 @@
+<html>
+<head>
+	<link href="stylesheets/foundation.css" rel="stylesheet">
+	<style>
+		
+	</style>
+	
+	<script src="javascripts/jquery.js"></script>
+	<script>
+		$(function(){
+			$(".pc-selector").live("click",function(){
+				$(".pc-selector").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+			
+		});
+	</script>
+</head>
+<body>
+	<div class="pc-header pc-selector"></div>
+	<div class="pc-body pc-selector"></div>
+	<div class="pc-footer pc-selector"></div>
+</body>
+</html>

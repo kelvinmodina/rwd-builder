@@ -1,0 +1,36 @@
+#nav-tool{
+	width:800px;
+	height:50px;
+	background-color:#333;
+	border-radius:0px 0px 10px 10px;
+	padding:20px;
+	color:white;
+	z-index:1000;
+	position:absolute;
+}
+	#nav-tool div{
+		padding:0px 5px;
+		cursor:pointer;
+	}
+	#nav-tool div:not(:first-child){
+		border:solid #EEE;
+		border-width:0px 1px 0px 0px;
+	}
+	#nav-tool .ntool-hide{
+		cursor:pointer;
+	}
+	.ntool-show{
+		width:100px;
+		position:absolute;
+		background-color:#333;
+		padding:5px;
+		text-align:center;
+		color:white;
+		border-radius:0px 0px 10px 10px;
+		cursor:pointer;
+		z-index:500;
+		opacity:.2;
+	}
+	.ntool-show:hover{
+		opacity:1;
+	}

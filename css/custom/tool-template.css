@@ -1,0 +1,80 @@
+#tool-template{
+			background-color:#EEE;
+			height:auto;
+			width:250px;
+			border:8px solid;
+			border-radius:5px;
+			padding:3px;
+			position:absolute;
+		}
+		
+			.tt-header{
+				width:100%;
+				height:40px;
+				border:1px solid;
+				border-width:0px 0px 1px 0px;
+				cursor:move;
+			}
+			
+			.tt-controls{
+				width:100%;
+				display:inline-block;
+				border:1px solid;
+				border-width:0px 0px 1px 0px;
+			}
+				.tt-controls div{
+					float:left;
+					width:33%;
+					text-align:center;
+				}
+				.tt-controls div:hover{
+					background-color:gray;
+				}
+			
+			.tt-content{
+				width:100%;
+				background-color:white;
+			}
+				.tt-content .tt-content-main{
+					border:solid 1px #CCCCCC;
+					width:100%;
+					margin:2px 0px;
+					padding:5px;
+					font-size:14px;
+					background-color:white;
+					cursor:pointer;
+				}
+				.tt-content .tt-accordion{
+					display:none;
+				}
+				.tt-content ul{
+					display:inline-block;
+					list-style-type:none;
+					margin:0px;
+					padding:0px;
+					width:100%;
+					max-height:100px;
+					overflow-x:hidden;
+					overflow-y:auto;
+				}
+					.tt-content ul li:hover{
+						background-color:#EEE;
+					}
+					.tt-content ul li{
+						display:inline-block;
+						list-style-type:none;
+						margin:0px;
+						padding:5px;
+						width:100%;
+						border:1px solid #EEE;
+						border-width:0px 0px 1px 0px;
+						cursor:pointer;
+					}
+					.tt-content ul li img{
+						padding:5px;
+						float:left;
+					}
+					.tt-content ul li p{
+						padding:5px;
+						font-size:10px;
+					}

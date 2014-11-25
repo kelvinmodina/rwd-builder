@@ -1,0 +1,241 @@
+<html>
+<head>
+	<link href="css/ui-lightness/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+	<link href="stylesheets/foundation.css" rel="stylesheet">
+	<link href="css/custom/tool-template.css" rel="stylesheet">
+	<link href="css/custom/nav-tool.css" rel="stylesheet">
+	<style>
+		body{
+			padding:0px;
+			margin:0px;
+			z-index:-20;
+			background-color:#D9D9D9;
+		}
+		#preview-container{
+			width:100%;
+			height:100%;
+			margin:0px auto;
+			background-color:white;
+			z-index:-10;
+			border:8px solid;
+			border-radius:5px;
+			overflow-x:hidden !important;
+			overflow-y:auto !important;
+		}
+			.pc-header{
+				min-height:10%;
+				width:100%;
+				border:dotted #333;
+				border-width:0px 0px 1px 0px;
+			}
+			.pc-body{
+				height:80%;
+				width:100%;
+			}
+			.pc-footer{
+				height:10%;
+				width:100%;
+				border:dotted #333;
+				border-width:1px 0px 0px 0px;
+			}
+			.pc-default-text{
+				text-align:center;
+			}
+			
+			.pc-selector.active{
+				background-color:#EEE;
+			}
+			
+			
+			.pc-header div.template div{
+				background-color:blue;
+				color:white;
+				border:1px solid;
+				width:33%;
+				float:left;
+			}
+			
+		
+
+		#tool-option{
+			height:auto;
+			width:300px;
+			border:8px solid;
+			border-radius:5px;
+			background-color:#eee;
+			position:absolute;
+			right:0px;
+		}
+			#tool-option textarea{
+				height:200px;
+			}
+			
+		#tool-popup{
+			height:auto;
+			width:500px;
+			border:8px solid;
+			border-radius:5px;
+			background-color:#eee;
+			position:absolute;
+			right:0px;
+		}
+	</style>
+
+	<script src="javascripts/jquery.js"></script>
+	<script src="js/jquery-ui-1.9.0.custom.min.js"></script>
+	<script src="https://raw.github.com/cowboy/jquery-resize/v1.1/jquery.ba-resize.min.js"></script>
+	<script src="js/custom/default/nav-tool.js"></script>
+	<script src="js/custom/default/tool-template.js"></script>
+	<script>
+		$(function(){
+			var global_val;
+			
+			$(".jdraggable").draggable({handle:".jdrag-handle"});
+			$(".jaccordion").accordion({collapsible:true});
+			
+			$(".tt-content .tt-content-main").click(function(){
+				if($(this).next().css("display")=="none"){
+					$(this).next().slideDown();
+				}
+				else{
+					$(this).next().slideUp();
+				}
+			});
+			
+			$(".tt-accordion ul li").click(function(){
+				var type=$(this).attr("t:type");
+				var tid=$(this).attr("t:id");
+				$.get(
+					"templates/"+type+tid+".html",
+					{},
+					function(data){
+						$("#preview-container iframe").contents().find(".pc-"+type).html(data);
+						$("#preview-container iframe").contents().find(".editable").each(function(){
+							var border=$(this).css("border");
+							var padding=$(this).css("margin").replace("px","");
+							$(this).hover(function(){
+								$(this).css({
+									border:"1px solid red",
+									margin:parseInt(padding)-1
+								});
+							},function(){
+								$(this).css({
+									border:border,
+									margin:padding
+								});
+							});
+							
+							$(this).click(function(){
+								global_val=$(this);
+								$(".to-text").val($(this).html());
+							});
+						});
+					}
+				);
+			});
+			
+			$(".tt-header img").live("click",function(){
+				$(this).parent().parent().parent().hide();
+			});
+			
+			$(".to-save").click(function(){
+				global_val.html($(".to-text").val());
+			});
+			
+			$("#final_save").click(function(){
+				var final_html=$("#preview-container iframe").contents().find("html").html();
+				console.log(final_html);
+				$("#tool-popup").show();
+				$(".tp-text").val(final_html);
+			});
+			
+			$(".tp-close").click(function(){
+				$(this).parent().parent().hide();
+			});
+			
+			$("#tool-popup").css({
+				top:($(window).height()-$("#tool-popup").height())/2,
+				left:($(window).width()-$("#tool-popup").width())/2
+			});
+		});
+		
+	</script>
+</head>
+
+<body>
+	<!-- hidden popup -->
+	<div id="tool-popup" class="right jdraggable" style="display:none">
+		<div class="tt-header jdrag-handle">Popup<span><img class="right" src="images/custom/close.png"/></span></div>
+		<div>
+			<textarea class="tp-text" style="height:500px;"></textarea>
+		</div>
+		<div>
+			<input type="button" value="Close" class="tp-close"/>
+		</div>
+	</div>
+	<!-- end hidden popup -->
+	<!-- tool-options here -->
+	<div id="tool-option" class="right jdraggable">
+		<div class="tt-header jdrag-handle">Options<span><!-- <img class="right" src="images/custom/close.png"/> --></span></div>
+		<div>
+			<textarea class="to-text"></textarea>
+		</div>
+		<div>
+			<input class="to-save" type="button" value="Save"/>
+		</div>
+	</div>
+	<!-- end of tool-options -->
+	<!-- tool-template here -->
+	<div id="tool-template" class="jdraggable jresize-h">
+		<div class="tt-header jdrag-handle">Templates<span><!-- <img class="right" src="images/custom/close.png"/> --></span></div>
+		<div class="tt-controls">
+			<div device:width="100%" device:height="100%"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/></div>
+			<div device:width="1024" device:height="768"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/television.png"/></div>
+			<div device:width="320" device:height="480"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/smartphone.png"/></div>
+		</div>
+		<div class="tt-content">
+			<div class="tt-content-main">Header</div>
+			<div class="tt-accordion header-section">
+				<ul>
+					<li t:type="header" t:id="1"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/><p>Template 1</p></li>
+					<li t:type="header" t:id="2"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/><p>Template 2</p></li>
+				</ul>
+			</div>
+			<div class="tt-content-main">Body</div>
+			<div class="tt-accordion body-section">
+				<ul>
+					<li t:type="body" t:id="1"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/><p>Template 1</p></li>
+					<li t:type="body" t:id="2"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/><p>Template 2</p></li>
+				</ul>
+			</div>
+			<div class="tt-content-main">Footer</div>
+			<div class="tt-accordion footer-section">
+				<ul>
+					<li t:type="footer" t:id="1"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/><p>Template 1</p></li>
+					<li t:type="footer" t:id="1"><img src="http://www.iphoneicon.net/icon/png/token-dark-icons-by-brsev/32/tv.png"/><p>Template 2</p></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- end of tool-template -->
+	<!-- header nav tool here -->
+	<div id="nav-tool">
+		<div class="ntool-hide right">hide</div>
+		<div class="right">logout</div>
+		<div class="right" id="final_save">save</div>
+		<div class="right">setting</div>
+		<div class="right">home</div>
+	</div>
+	<div class="ntool-show">show</div>
+	<!-- end of header nav tool -->
+	<!-- preview container -->
+	<div id="preview-container">
+		
+		<iframe src="template.html" style="width:100%;height:100%;padding:0px;margin:0px;border:none;"></iframe>
+		<!--<div class="pc-header pc-selector"><div class="pc-default-text">HEADER</div></div>
+		<div class="pc-body pc-selector"><div class="pc-default-text">BODY</div></div>
+		<div class="pc-footer pc-selector"><div class="pc-default-text">FOOTER</div></div>-->
+	</div>
+	<!-- end of preview container -->
+</body>
+</html>

@@ -1,0 +1,1 @@
+$(function(){	$(".ntool-hide").click(function(){		$(this).parent().slideUp();	});	$(".ntool-show").click(function(){		//$(this).hide();		$("#nav-tool").slideDown();	});	$("#nav-tool").css({		"margin-left":($(window).width()-$("#nav-tool").width())/2	});	$(".ntool-show").css({		"margin-left":($(window).width()-$(".ntool-show").width())/2	});});

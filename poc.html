@@ -1,0 +1,39 @@
+<html>
+<head>
+	<script src="javascripts/jquery.js"></script>
+	<script>
+		KDM = {
+			template1:"",
+			name:"name"
+		}
+		
+		$(function(){
+			$.get(
+				"templates/poc.html",
+				function(data){
+					KDM.template1 = data;
+					//kajax(data);
+					
+				}
+			);
+			$.get(
+				"forms/poc.php",
+				function(data){
+					alert(data.name);
+				}
+			);
+		});
+		
+		function kajax(sdata){
+			$.get(
+				"forms/poc.php",
+				function(data){
+					alert(data);
+				}
+			);
+		}
+	</script>
+</head>
+<body>
+</body>
+</html>
